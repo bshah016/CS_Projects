@@ -5,6 +5,6 @@ using namespace std;
 int main() {
 
     string str = "Hello World";
-    str.replace(6, 5, "Earth");
+    cout << str;
    return 0;
 }
