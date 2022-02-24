@@ -8,7 +8,7 @@ import smtplib
 
 print("Initializing Kingsley")
 
-MASTER = "Sir"
+MASTER = ""
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -19,11 +19,28 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+def changeName():
+    speak("Would you like to change your name, or should I keep it as Sir?")
+    command = takeCommand()
+    
+    if 'yes' or 'yeah' in command.lower():
+        speak("What would you like me to call you Sir?")
+        name = takeCommand()
+        MASTER = name
+        speak("Is " + MASTER + "okay with you?")
+        response = takeCommand()
+        if 'yes' or 'yeah' in response.lower():
+            speak("Ok" + MASTER)
+
+    else:
+        speak("Ok" + MASTER)
+
+
 #will greet you as per the current time
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     #print(hour)
-
+    
     if hour >= 0 and hour < 12:
         speak("Good Morning" + MASTER)
 
@@ -32,7 +49,7 @@ def wishMe():
 
     else:
         speak("Good Evening" + MASTER)
-
+    changeName()
     speak(" How may I help you today" + MASTER + "?")
 #this function will take command from the microphone
 def takeCommand():
@@ -55,11 +72,12 @@ def takeCommand():
 
 #Main program starts here
 def main():
+    MASTER = "Sir"
     num = 0
     speak("Initializing... Kingsley is ready...")
     wishMe()
     query = takeCommand()
-
+    
     #logic for executing basic tasks based on query
     while query != 'exit':
         if 'wikipedia' in query.lower():
@@ -136,21 +154,21 @@ def main():
             num = 1
             #main()
 
-        elif 'microsoft word' or 'word' in query.lower():
+        elif "microsoft word" in query.lower():
             #codePath = "C:\\Users\\brijs\\OneDrive\\Desktop\\Word.lnk"
             codePath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Word.lnk"
             os.startfile(codePath)
             num = 1
             #main()
 
-        elif 'microsoft excel' or 'excel' in query.lower():
+        elif 'excel' in query.lower():
             #codePath = "C:\\Users\\brijs\\OneDrive\\Desktop\\Word.lnk"
             codePath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Excel.lnk"
             os.startfile(codePath)
             num = 1
             #main()
 
-        elif 'microsoft outlook' or 'outlook' in query.lower():
+        elif "microsoft outlook" in query.lower():
             #codePath = "C:\\Users\\brijs\\OneDrive\\Desktop\\Word.lnk"
             codePath = "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Outlook.lnk"
             os.startfile(codePath)
